@@ -146,3 +146,30 @@ Available kernels:
   python3     C:\Users\un\AppData\Roaming\jupyter\kernels\python3
 
 ```
+
+# Environment management using uv (instead of conda and pip)
+The package manager `uv` is used to setup the `.venv` directly in the repo root. If you dont have `uv` installed, you can get it by using: 
+```
+pip install uv
+```
+uv depends on having a `pyproject.toml` file on the project root with all dependencies. Hence, there is no need to have a separate `requirements.txt` file anymore. Unless you choose to move back to conda/pip, you can choose only keep `pyproject.toml` file in the root, eliminating the need for separate `environment.yml` (for conda) and `requirements.txt` (pip). 
+
+The initial template for the `pyproject.toml` might look like this: 
+```
+[project]
+name = "my_project"
+version = "0.1.0"
+description = "my_project to do my work"
+readme = "README.md"
+requires-python = "==3.13"
+dependencies = [
+    "jinja2",
+    "snowflake-connector-python"
+]
+```
+
+Once done, you can simply setup the environment by using the following: <br>
+`uv sync`
+
+And then activate the environment(which gets installed in the `.venv` folder of the project root) like this:<br>
+`.venv\scripts\activate`
